@@ -35,3 +35,12 @@ exports.get_client_by_id = (req, res) => {
         res.send(client);
     });
 };
+
+exports.delete_client = (req, res) => {
+    Client.deleteClient(req.params.clientId, (err, client) => {
+
+        if (!req.params.clientId) res.status(400).send('Please fill in correct ID');
+        if (err) res.send(err);
+        res.send(client);
+    });
+};

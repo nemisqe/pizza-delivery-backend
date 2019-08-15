@@ -35,6 +35,14 @@ class Client {
             result(null, res);
         });
     };
+
+    static deleteClient(id, result) {
+        mysql.query('DELETE FROM clients WHERE id = ?', [id], (err, res) => {
+
+            if (err) result(err, null);
+            result(null, res);
+        });
+    };
 }
 
 module.exports = Client;

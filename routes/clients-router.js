@@ -9,7 +9,8 @@ const clientRoter = (app) => {
         .post(clientsController.add_new_client);
     app.route('/clients/:clientId')
         .get(clientsController.get_client_by_id)
-        .put(clientsController.update_client);
+        .put(clientsController.update_client)
+        .delete(clientsController.delete_client);
 };
 
 module.exports = clientRoter;
