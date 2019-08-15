@@ -1,0 +1,29 @@
+a {
+    text-decoration: none;
+}
+
+.main-page-title {
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+.main-page-nav {
+    margin-top: 20px;
+    display: flex;
+    min-height: auto;
+    width: 400px;
+    border: 1px solid black;
+    justify-content: flex-start;
+}
+
+.main-page-nav a {
+    padding-right: 10px;
+}
+
+.show-all-clients {
+    font-size: 16px;
+}
+
+.clients-page-title {
+    font-size: 20px;
+}

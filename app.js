@@ -5,6 +5,9 @@ const bodyParses = require('body-parser');
 const port = process.env.PORT || 3000;
 const clientRouter = require('./routes/clients-router');
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.use(bodyParses.json());
 app.use(bodyParses.urlencoded({ extended: true }));
 
