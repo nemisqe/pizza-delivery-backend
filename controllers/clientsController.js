@@ -1,4 +1,5 @@
 const Client = require('../models/clientsModel');
+const async = require('async');
 
 exports.get_all_clients = (req, res) => {
 
@@ -24,14 +25,57 @@ exports.get_all_clients = (req, res) => {
 };
 
 exports.add_new_client = (req, res) => {
-    let newClient = new Client(req.body);
 
-    Client.addNewClient(newClient, (err, client) => {
+    async.waterfall([
+        (callback) => {
+            Client.getClientByName(req.body.clientName, (err, res) => {
+                if (err) res.send(err);
+                callback(null, res)
+            });
+        }
+    ], (err, result) => {
 
-        if (err) res.send(err);
-        res.render('../views/add-new-client');
-        res.json(client);
+        if (result.length > 0) {
+            res.render('../views/add-new-client', { message: req.flash('User with such nickname is already registered') });
+        } else {
+            const new_user = new Client(req.body);
+
+            if (!new_user.clientName) res.status(400).send('Please add username');
+
+            Client.addNewClient(new_user, (err, client) => {
+
+                if (err) res.send(err);
+                res.render('../views/main-page', {
+                    message: ('Welcome!' + new_user.clientName)
+                });
+            });
+        }
     });
+
+
+
+    // if (req.method === 'POST') {
+    //
+    //     let newClient = new Client(req.body);
+    //     let username = newClient.clientName;
+    //
+    //     if (!username || username.length < 3) res.status(400)
+    //         .send('Please enter your name with more then 3 symbols');
+    //
+    //     if (newClient.clientName) {
+    //         Client.addNewClient(newClient, (err) => {
+    //
+    //             if (err) res.send(err);
+    //             res.render('../views/main-page', {
+    //                 message: ('Welcome' + req.body.clientName)
+    //             });
+    //         });
+    //     }
+    // }
+};
+
+exports.show_registration_form = (req, res) => {
+    res.render('../views/add-new-client');
 };
 
 exports.update_client = (req, res) => {

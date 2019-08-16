@@ -21,8 +21,18 @@ class Client {
         });
     };
 
+    static getClientByName(clientName, result) {
+        mysql.query('SELECT * FROM clients WHERE clientName = ?', clientName, (err, res) => {
+
+            if (err) result(err, null);
+            result(null, res);
+        });
+    }
+
     static addNewClient(newClient, result) {
-        mysql.query('INSERT INTO clients set ?', newClient, (err, res) => {
+
+        mysql.query('INSERT INTO clients SET ?', newClient, (err, res) => {
+
             if (err) result(err, null);
             result(null, res.insertId);
         });

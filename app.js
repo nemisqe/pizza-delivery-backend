@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const debug = require('debug')('app:log');
+const session = require('./controllers/clientsController');
 const bodyParses = require('body-parser');
 const port = process.env.PORT || 3000;
 const clientRouter = require('./routes/clients-router');

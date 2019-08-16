@@ -4,8 +4,9 @@ html
         style
             include ../css/style.css
     body
+
         div(class="registration-form")
             form(role="form" method="POST" action="/clients/add")
-                label(for="client-name")= 'Enter your name'
-                input(type="text" placeholder="Enter here" id="client-name" name="client-name")
+                label(for="reg__client-name")= 'Enter your name'
+                input(type="text" placeholder="Enter here" id="reg__client-name" name="clientName" value= regClientName)
                 button(type=submit)= 'SEND'
