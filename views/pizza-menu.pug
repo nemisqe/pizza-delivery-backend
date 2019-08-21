@@ -1,0 +1,15 @@
+html
+    head
+        title= 'Menu'
+        style
+            include ../css/style.css
+    body
+        h3(class="clients-page-title")= 'Pizza menu'
+        ul
+            form(method="POST" action="/menu" class="menu-form")
+                each el in val
+                        input(type="checkbox" id=val name="pizza_name" value= requested_pizza)
+                        label(for=val)= 'pizza: ' + el.pizza_name + ' ; cooking time: ' + el.cooking_time
+                button(type="submit")= 'Make order'
+        h3= message
+        a(class="back-to-main-page" href="/")= 'Back to main page'

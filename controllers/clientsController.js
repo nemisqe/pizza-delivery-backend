@@ -78,8 +78,10 @@ exports.login_form_post = (req, res) => {
         }
     ], (err, result) => {
         if (result.length < 1) {
+
             res.render('../views/login', { message: `Incorrect login or password`} );
         } else if(crypto.createHash('sha256').update(req.body.password).digest('base64') === result[0].password) {
+
             let sessionData = req.session;
             sessionData.client = {};
             let clientNameSess = req.body.clientName;
@@ -123,7 +125,9 @@ exports.delete_client = (req, res) => {
 
 exports.log_out = (req, res) => {
     if (req.session.clientName) {
+        console.log(req.session.client.clientName);
         res.session.destroy();
+        res.render('../views/main-page');
     } else {
         res.redirect('/');
     }

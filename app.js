@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const debug = require('debug')('app:log');
 const clientRouter = require('./routes/clients-router');
+const menuRouter = require('./routes/menu-router');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -29,5 +30,6 @@ app.use(session({
 }));
 
 clientRouter(app);
+menuRouter(app);
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
