@@ -3,6 +3,7 @@ const mysql = require('../db/mysql');
 class Client {
     constructor(client) {
         this.clientName = client.clientName;
+        this.password = client.password;
     }
 
     static getAllClients(result) {
@@ -38,8 +39,9 @@ class Client {
         });
     };
 
+
     static updateClient(id, newClientName, result) {
-        mysql.query('UPDATE clients SET clientName = ? WHERE id = ?', [newClientName.clientName, id], (err, res) => {
+        mysql.query('UPDATE clients SET password = ? WHERE id = ?', [newClientName.clientName, id], (err, res) => {
 
             if (err) result(err, null);
             result(null, res);

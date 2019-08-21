@@ -6,7 +6,10 @@ html
     body
 
         div(class="registration-form")
+            h3= 'Registration page'
             form(role="form" method="POST" action="/clients/add")
                 label(for="reg__client-name")= 'Enter your name'
-                input(type="text" placeholder="Enter here" id="reg__client-name" name="clientName" value= regClientName)
+                input(type="text" placeholder="Enter nickname" id="reg__client-name" name="clientName")
+                label(for="reg__client-password")= 'Enter your password'
+                input(type="password" placeholder="Enter password" id="reg__client-password"  name="password")
                 button(type=submit)= 'SEND'

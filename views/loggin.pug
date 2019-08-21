@@ -1,0 +1,12 @@
+html
+    head
+        title= 'Login'
+    body
+        h3= 'Loggin page'
+        span= message
+        form(role="form" method="POST" action="/authentication")
+            label(for="loggin__client-name")= 'Enter your name'
+            input(type="text" placeholder="Enter nickname" id="loggin__client-name" name="clientName")
+            label(for="loggin__client-password")= 'Enter your password'
+            input(type="password" placeholder="Enter password" id="loggin__client-password"  name="password")
+            button(type=submit)= 'LOGIN'
