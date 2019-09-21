@@ -4,7 +4,8 @@ const menuRouter = (app) => {
 
     app.route('/menu')
         .get(pizzaMenuController.show_menu);
-        // .post(pizzaMenuController.make_order);
+    app.route('/menu/:id')
+        .get(pizzaMenuController.get_pizza_by_id);
 };
 
 module.exports = menuRouter;

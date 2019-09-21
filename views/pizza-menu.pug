@@ -8,8 +8,8 @@ html
         ul
             form(method="POST" action="/menu" class="menu-form")
                 each el in val
-                        input(type="checkbox" id=val name="pizza_name" value= requested_pizza)
-                        label(for=val)= 'pizza: ' + el.pizza_name + ' ; cooking time: ' + el.cooking_time
+                        input(type="checkbox" id=val name=val)
+                        label(for=val name="pizza_menu_val")= 'pizza: ' + el.pizza_name + ' ; cooking time: ' + el.cooking_time
                 button(type="submit")= 'Make order'
         h3= message
         a(class="back-to-main-page" href="/")= 'Back to main page'

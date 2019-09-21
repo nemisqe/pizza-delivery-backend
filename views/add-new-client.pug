@@ -7,6 +7,7 @@ html
 
         div(class="registration-form")
             h3= 'Registration page'
+            span= message
             form(role="form" method="POST" action="/clients/add")
                 label(for="reg__client-name")= 'Enter your name'
                 input(type="text" placeholder="Enter nickname" id="reg__client-name" name="clientName")

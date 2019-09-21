@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     database: 'pizza_delivery_db',
     user: 'root',
-    password: ''
+    password: '1234'
 });
 
 connection.connect((err) => {

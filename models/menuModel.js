@@ -14,11 +14,19 @@ class Menu {
         });
     }
 
+    static getPizzaById(id, result) {
+        mysql.query('SELECT pizza_name, cooking_time FROM pizza_menu WHERE id = ?', id, (err, res) => {
+
+            if (err) result(err, null);
+            result(null, res[0]);
+        });
+    };
+
     static addSelectedPizzasInOrder(clientOrder, result) {
         mysql.query('INSERT INTO orders SET ?', clientOrder, (err, res) => {
 
             if (err) result(err, null);
-            result(null, res);
+            result(null, res.insertId);
         });
     }
 

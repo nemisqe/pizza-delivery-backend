@@ -17,14 +17,7 @@ exports.get_all_clients = (req, res) => {
             clientsInfo.push(client[key]);
         }
         
-        res.render('../views/show-clients', {
-            title: 'All clients',
-            clientsList: clientsInfo.map(x => {
-
-                return ('Client id is ' + x.id + ', name is ' + x.clientName)
-            })
-
-        });
+        res.send(client);
     });
 };
 
@@ -41,7 +34,7 @@ exports.add_new_client = (req, res) => {
 
         if (result.length > 0) {
 
-            res.render('../views/add-new-client', { message: 'User with such nickname is already registered' });
+            res.status(400).send('Username is already used');
         } else {
 
             req.body.password = crypto.createHash('sha256').update(req.body.password).digest('base64');
@@ -51,10 +44,11 @@ exports.add_new_client = (req, res) => {
             if (!new_user.clientName) res.status(400).send('Please add username');
 
             Client.addNewClient(new_user, (err, client) => {
-                if (err) res.send(err);
-                res.render('../views/main-page', {
-                    message: ('Welcome ' + new_user.clientName + '!')
-                });
+                if (err) {
+                    console.log(err);
+                    res.send(err);
+                }
+                res.send(result);
             });
         }
     });
@@ -87,10 +81,12 @@ exports.login_form_post = (req, res) => {
             let clientNameSess = req.body.clientName;
             sessionData.client.clientName = clientNameSess;
             res.cookie('session', 'client', result);
+            console.log(sessionData);
+            console.log(result);
 
-            res.redirect('/');
+            res.send(result);
         } else {
-            res.render('../views/loggin', { message: `Incorrect login or password`} );
+            res.send(err);
         }
     });
 };
@@ -124,18 +120,16 @@ exports.delete_client = (req, res) => {
 };
 
 exports.log_out = (req, res) => {
-    if (req.session.clientName) {
-        console.log(req.session.client.clientName);
-        res.session.destroy();
-        res.render('../views/main-page');
+    if (req.session.client) {
+
+        delete req.session;
+        res.send(res);
     } else {
         res.redirect('/');
     }
 };
 
 exports.main_page = (req, res) => {
-    console.log(req.cookies);
-    console.log(req.session);
 
     if (req.session.client) {
         res.render('../views/main-page__logged-in', {message: 'Welcome ' + req.session.client.clientName });
