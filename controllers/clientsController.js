@@ -34,7 +34,7 @@ exports.add_new_client = (req, res) => {
 
         if (result.length > 0) {
 
-            res.status(400).send('Username is already used');
+            res.status(409).send('Username is already used');
         } else {
 
             req.body.password = crypto.createHash('sha256').update(req.body.password).digest('base64');
@@ -73,7 +73,7 @@ exports.login_form_post = (req, res) => {
     ], (err, result) => {
         if (result.length < 1) {
 
-            res.render('../views/login', { message: `Incorrect login or password`} );
+            res.status(409).send('Username is already used');
         } else if(crypto.createHash('sha256').update(req.body.password).digest('base64') === result[0].password) {
 
             let sessionData = req.session;
