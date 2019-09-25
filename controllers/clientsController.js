@@ -80,9 +80,8 @@ exports.login_form_post = (req, res) => {
             sessionData.client = {};
             let clientNameSess = req.body.clientName;
             sessionData.client.clientName = clientNameSess;
+            sessionData.client.id = result[0].id;
             res.cookie('session', 'client', result);
-            console.log(sessionData);
-            console.log(result);
 
             res.send(result);
         } else {

@@ -21,16 +21,6 @@ class Menu {
             result(null, res[0]);
         });
     };
-
-    static addSelectedPizzasInOrder(clientOrder, result) {
-        mysql.query('INSERT INTO orders SET ?', clientOrder, (err, res) => {
-
-            if (err) result(err, null);
-            result(null, res.insertId);
-        });
-    }
-
-
 }
 
 module.exports = Menu;
