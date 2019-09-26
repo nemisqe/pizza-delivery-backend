@@ -35,9 +35,19 @@ exports.make_order = (req, res) => {
     console.log(new_order);
     Order.makeOrder(new_order, (err, order) => {
 
-        if (err) {
-            res.status(400).send('Bad request');
+        if (err) res.status(400).send('Bad request');
+
+        if (new_order.cooking_time === 0) {
+            return;
         }
+
         res.send(new_order);
-    })
+
+        setTimeout(() => {
+            Order.setOrderIsReady(order, (result) => {
+                console.log(`Order ${order} is ready`);
+            })
+        }, new_order.cooking_time * 1000);
+
+    });
 };

@@ -24,6 +24,15 @@ class Order {
             result(null, res.insertId);
         });
     };
+
+    static setOrderIsReady(id, result) {
+
+        mysql.query('UPDATE orders SET isReady = 1 WHERE orderId = ?', id, (err, res) => {
+
+            if (err) result(err, null);
+            result(null, res);
+        });
+    };
 }
 
 module.exports = Order;
