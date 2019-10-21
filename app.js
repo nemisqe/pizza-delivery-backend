@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const debug = require('debug')('app:log');
 const clientRouter = require('./routes/clients-router');
 const menuRouter = require('./routes/menu-router');
 const cookieParser = require('cookie-parser');

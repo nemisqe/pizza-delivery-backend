@@ -4,6 +4,7 @@ class Client {
     constructor(client) {
         this.clientName = client.clientName;
         this.password = client.password;
+        this.token = client.token;
     }
 
     static getAllClients(result) {

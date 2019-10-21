@@ -8,7 +8,7 @@ const menuRouter = (app) => {
         .get(pizzaMenuController.get_pizza_by_id);
     app.route('/menu/add')
         .post(pizzaMenuController.make_order);
-    app.route('/cart/:clientName')
+    app.route('/history/:clientName')
         .get(pizzaMenuController.get_current_user_orders_history);
 };
 

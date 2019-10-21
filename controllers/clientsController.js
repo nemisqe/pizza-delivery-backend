@@ -1,9 +1,7 @@
 const Client = require('../models/clientsModel');
 const async = require('async');
 const crypto = require('crypto');
-const Cookies = require('cookies');
-const session = require('../app');
-const COOKIES_KEY = ['COOKIES KEY'];
+const jwt = require('jsonwebtoken');
 
 exports.get_all_clients = (req, res) => {
 
@@ -38,17 +36,20 @@ exports.add_new_client = (req, res) => {
         } else {
 
             req.body.password = crypto.createHash('sha256').update(req.body.password).digest('base64');
+            req.body.token = req.body.token = jwt.sign({data: 'foobar'}, 'secret',
+                { expiresIn: '24h' });
 
             const new_user = new Client(req.body);
 
-            if (!new_user.clientName) res.status(400).send('Please add username');
+            if (!new_user.clientName || !new_user.password) res.status(400).send('Please add username');
 
             Client.addNewClient(new_user, (err, client) => {
                 if (err) {
                     console.log(err);
                     res.send(err);
                 }
-                res.send(result);
+                console.log(new_user);
+                res.send(new_user);
             });
         }
     });
@@ -73,7 +74,7 @@ exports.login_form_post = (req, res) => {
     ], (err, result) => {
         if (result.length < 1) {
 
-            res.status(409).send('Username is already used');
+            res.status(404).send(`User doesn't exists`);
         } else if(crypto.createHash('sha256').update(req.body.password).digest('base64') === result[0].password) {
 
             let sessionData = req.session;
@@ -82,7 +83,6 @@ exports.login_form_post = (req, res) => {
             sessionData.client.clientName = clientNameSess;
             sessionData.client.id = result[0].id;
             res.cookie('session', 'client', result);
-
             res.send(result);
         } else {
             res.send(err);

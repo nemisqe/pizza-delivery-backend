@@ -27,7 +27,7 @@ class Order {
 
     static setOrderIsReady(id, result) {
 
-        mysql.query('UPDATE orders SET isReady = 1 WHERE orderId = ?', id, (err, res) => {
+        mysql.query(`UPDATE orders SET isReady = 'done' WHERE orderId = ?`, id, (err, res) => {
 
             if (err) result(err, null);
             result(null, res);
